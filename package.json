@@ -1,0 +1,59 @@
+{
+  "name": "spotify-tray-player",
+  "version": "1.0.0",
+  "description": "Spotify Tray Player",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "startup": "electron .",
+    "start": "npm run build && electron-forge start",
+    "clean": "rm -rf ./dist && rm -rf ./out && mkdir ./out",
+    "package": "npm run clean && npm run build && electron-forge package",
+    "make": "npm run build && electron-forge make"
+  },
+  "keywords": [
+    "Electron"
+  ],
+  "author": "Elio Struyf",
+  "license": "ISC",
+  "dependencies": {
+    "electron-squirrel-startup": "1.0.0",
+    "spotify-node-applescript": "1.1.1"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.51",
+    "@electron-forge/maker-deb": "^6.0.0-beta.51",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.51",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.51",
+    "@electron-forge/maker-zip": "^6.0.0-beta.51",
+    "electron": "8.2.5",
+    "typescript": "3.8.3"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "spotify_tray_player"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
+}
