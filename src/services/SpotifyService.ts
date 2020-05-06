@@ -37,6 +37,17 @@ export class Spotify {
   }
 
   /**
+   * Play the next song
+   */
+  public static next(): Promise<boolean | null> {
+    return new Promise<boolean | null>(resolve => {
+      spotify.next(() => {
+        resolve(true);
+      });
+    });
+  }
+
+  /**
    * Toggle the state of the song
    */
   public static toggle(): Promise<SpotifyState | null> {

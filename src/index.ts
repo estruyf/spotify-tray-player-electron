@@ -11,6 +11,7 @@ const createImage = (fileName: string): NativeImage => {
 };
 
 app.on('ready', () => {
+  let playTimeout: NodeJS.Timeout = null;
   const tray = new Tray(createImage('spotify.png'));
 
   const menuItems: MenuItemConstructorOptions[] = [{ label: 'Quit', click: () => app.quit() }];
@@ -42,7 +43,16 @@ app.on('ready', () => {
   };
 
   tray.on('click', async (event) => {
-    toggle();
+    // For capturing double click
+    playTimeout = setTimeout(() => {
+      toggle()
+    }, 100);
+  });
+
+  tray.on('double-click', async (event) => {
+    clearTimeout(playTimeout);
+    playTimeout = null;
+    await Spotify.next();
   });
 
   tray.on('right-click', async (event) => {
