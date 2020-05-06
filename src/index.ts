@@ -44,15 +44,17 @@ app.on('ready', () => {
     setTimeout(async () => {
       const song = await Spotify.getState();
       if (song && song.state === "playing") {
-        tray.setImage(createImage('music.png'));
+        
         if (getTrayTitleEnabled()) {
           const track = await Spotify.getTrack();
           if (track && track.name && track.artist) {
+            tray.setImage(createImage('track.png'));
             tray.setTitle(`  ${track.artist} - ${track.name}`);
             return
           }
         }
         
+        tray.setImage(createImage('music.png'));
         tray.setTitle("");
       } else {
         tray.setImage(createImage('spotify.png'));
